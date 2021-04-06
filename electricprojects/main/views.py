@@ -1,6 +1,5 @@
-from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.shortcuts import render
 
 
 def initial(request):
@@ -8,3 +7,4 @@ def initial(request):
         return render(request, "main/initial.html")
     else:
         return HttpResponse(status=405)
+

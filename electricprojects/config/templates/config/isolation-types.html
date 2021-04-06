@@ -1,0 +1,64 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>Tipos de Isolação</h1>
+<br>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Descrição</th>
+        <th>Temp. máxima para serviço contínuo ºC</th>
+        <th>Temp. limite de sobrecarga ºC</th>
+        <th>Temp. limite de curto-circuito ºC</th>
+    </thead>
+    <tbody id="tbodyIsolations_id">
+        {% for isolation in isolationTypes %}
+        <tr>
+            <td>
+                {{ isolation.id }}
+            </td>
+            <td>
+                {{ isolation.description }}
+            </td>
+            <td>
+                {{ isolation.max_temperature }}
+            </td>
+            <td>
+                {{ isolation.overload_temperature }}
+            </td>
+            <td>
+                {{ isolation.short_circuit_temperature }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button onclick=addisolationTypesSeeds()>Adicionar tipos de isolação</button>
+<script>
+    function addisolationTypesSeeds() {
+        const request = new Request('./ajax/add-a03/')
+        fetch(request, {
+            method: 'GET',
+            mode: 'same-origin'
+        }).then(
+            function (response) {
+                if (response.status === 201) {
+                    let xhttp = new XMLHttpRequest()
+                    xhttp.onreadystatechange = function (data) {
+                        if (this.readyState === 4 && this.status === 200) {
+                            document.getElementById("tbodyIsolations_id").innerHTML = this.response
+                        } else if (this.readyState === 4 && this.status !== 200) {
+                            alert("Erro ao obter lista de itens adicionados")
+                        }
+                    }
+                    xhttp.open("GET", "./ajax/list-isolation-types/", true)
+                    xhttp.send()
+                } else if (response.status === 400) {
+                    alert("Dados já adicionados")
+                } else {
+                    alert("Erro interno do servidor")
+                }
+            }
+        )
+    }
+</script>
+{% endblock content %}

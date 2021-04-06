@@ -1,0 +1,19 @@
+{% for correction in temperatureCorrections %}
+<tr>
+    <td>
+        {{ correction.id }}
+    </td>
+    <td>
+        {{ correction.location }}
+    </td>
+    <td>
+        {{ correction.temperature }}
+    </td>
+    <td>
+        {{ correction.isolation_type.description }}
+    </td>
+    <td>
+        {{ correction.factor }}
+    </td>
+</tr>
+{% endfor %}

@@ -1,0 +1,16 @@
+{% for grouping in groupingCorrections %}
+<tr>
+    <td>
+        {{ grouping.id }}
+    </td>
+    <td>
+        {{ grouping.group_form.description }}
+    </td>
+    <td>
+        {{ grouping.circuit_number }}
+    </td>
+    <td>
+        {{ grouping.factor }}
+    </td>
+</tr>
+{% endfor %}

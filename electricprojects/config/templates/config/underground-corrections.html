@@ -1,0 +1,56 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>Fator de Correção do Solo</h1>
+<br>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Resistividade Térmica</th>
+        <th>Fator</th>
+    </thead>
+    <tbody id="tbodyUndergroundCorrection_id">
+        {% for correction in undergroundCorrections %}
+        <tr>
+            <td>
+                {{ correction.id }}
+            </td>
+            <td>
+                {{ correction.thermal_resistivity }}
+            </td>
+            <td>
+                {{ correction.correction_factory }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button onclick=addUndergroundCorrectionsSeeds()>Adicionar fator de correção do solo</button>
+<script>
+    function addUndergroundCorrectionsSeeds() {
+        const request = new Request('./ajax/add-a07/')
+        fetch(request, {
+            method: 'GET',
+            mode: 'same-origin'
+        }).then(
+            function (response) {
+                if (response.status === 201) {
+                    let xhttp = new XMLHttpRequest()
+                    xhttp.onreadystatechange = function (data) {
+                        if (this.readyState === 4 && this.status === 200) {
+                            document.getElementById("tbodyUndergroundCorrection_id").innerHTML = this.response
+                        } else if (this.readyState === 4 && this.status !== 200) {
+                            alert("Erro ao obter lista de itens adicionados")
+                        }
+                    }
+                    xhttp.open("GET", "./ajax/list-underground-corrections/", true)
+                    xhttp.send()
+                } else if (response.status === 400) {
+                    alert("Dados já adicionados")
+                } else {
+                    alert("Erro interno do servidor")
+                }
+            }
+        )
+    }
+</script>
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% for correction in undergroundCorrections %}
+<tr>
+    <td>
+        {{ correction.id }}
+    </td>
+    <td>
+        {{ correction.thermal_resistivity }}
+    </td>
+    <td>
+        {{ correction.correction_factory }}
+    </td>
+</tr>
+{% endfor %}

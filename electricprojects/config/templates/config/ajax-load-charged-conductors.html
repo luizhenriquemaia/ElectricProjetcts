@@ -1,0 +1,13 @@
+{% for conductor in chargedConductors %}
+<tr>
+    <td>
+        {{ conductor.id }}
+    </td>
+    <td>
+        {{ conductor.circuit_esqueme }}
+    </td>
+    <td>
+        {{ conductor.number }}
+    </td>
+</tr>
+{% endfor %}

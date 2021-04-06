@@ -1,0 +1,60 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>Fatores de Correção para Agrupamento</h1>
+<br>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Forma de agrupamento</th>
+        <th>Número de circuitos</th>
+        <th>Fator</th>
+    </thead>
+    <tbody id="tbodyGroupingCorrections_id">
+        {% for grouping in groupingCorrections %}
+        <tr>
+            <td>
+                {{ grouping.id }}
+            </td>
+            <td>
+                {{ grouping.group_form.description }}
+            </td>
+            <td>
+                {{ grouping.circuit_number }}
+            </td>
+            <td>
+                {{ grouping.factor }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button onclick=addGroupingCorrectionsSeeds()>Adicionar fatores de correção de agrupamento</button>
+<script>
+    function addGroupingCorrectionsSeeds() {
+        const request = new Request('./ajax/add-a09/')
+        fetch(request, {
+            method: 'GET',
+            mode: 'same-origin'
+        }).then(
+            function (response) {
+                if (response.status === 201) {
+                    let xhttp = new XMLHttpRequest()
+                    xhttp.onreadystatechange = function (data) {
+                        if (this.readyState === 4 && this.status === 200) {
+                            document.getElementById("tbodyGroupingCorrections_id").innerHTML = this.response
+                        } else if (this.readyState === 4 && this.status !== 200) {
+                            alert("Erro ao obter lista de itens adicionados")
+                        }
+                    }
+                    xhttp.open("GET", "./ajax/list-grouping-corrections/", true)
+                    xhttp.send()
+                } else if (response.status === 400) {
+                    alert("Dados já adicionados")
+                } else {
+                    alert("Erro interno do servidor")
+                }
+            }
+        )
+    }
+</script>
+{% endblock content %}

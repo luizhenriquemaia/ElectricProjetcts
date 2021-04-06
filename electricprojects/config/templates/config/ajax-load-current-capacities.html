@@ -1,0 +1,25 @@
+{% for capacities in currentCapacities %}
+<tr>
+    <td>
+        {{ capacities.id }}
+    </td>
+    <td>
+        {{ capacities.reference_method.method }}
+    </td>
+    <td>
+        {{ capacities.nominal_section }}
+    </td>
+    <td>
+        {{ capacities.number_of_charged_conductors }}
+    </td>
+    <td>
+        {{ capacities.cable_type }}
+    </td>
+    <td>
+        {{ capacities.capacity }}
+    </td>
+    <td>
+        {{ capacities.isolation_type.description }}
+    </td>
+</tr>
+{% endfor %}

@@ -1,0 +1,68 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>Métodos de Instalação</h1>
+<br>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Método</th>
+        <th>Descrição</th>
+        <th>Método de referência</th>
+        <th>Tipo de cabo</th>
+        <th>Diâmetro máximo condutor</th>
+    </thead>
+    <tbody id="tbodyMethods_id">
+        {% for method in instalationMethods %}
+        <tr>
+            <td>
+                {{ method.id }}
+            </td>
+            <td>
+                {{ method.method }}
+            </td>
+            <td>
+                {{ method.description }}
+            </td>
+            <td>
+                {{ method.reference_method.reference }}
+            </td>
+            <td>
+                {{ method.cable_type }}
+            </td>
+            <td>
+                {{ method.maximum_diameter }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button onclick=addInstalationMethodsSeeds()>Adicionar métodos de instalação</button>
+<script>
+    function addInstalationMethodsSeeds() {
+        const request = new Request('./ajax/add-a02/')
+        fetch(request, {
+            method: 'GET',
+            mode: 'same-origin'
+        }).then(
+            function(response) {
+                if (response.status === 201) {
+                    let xhttp = new XMLHttpRequest()
+                    xhttp.onreadystatechange = function (data) {
+                        if (this.readyState === 4 && this.status === 200) {
+                            document.getElementById("tbodyMethods_id").innerHTML = this.response
+                        } else if (this.readyState === 4 && this.status !== 200) {
+                            alert("Erro ao obter os métodos")
+                        }
+                    }
+                    xhttp.open("GET", "./ajax/list-instalation-methods/", true)
+                    xhttp.send()
+                } else if (response.status === 400) {
+                    alert("Dados já adicionados")
+                } else {
+                    alert("Erro interno do servidor")
+                }
+            }
+        )
+    }
+</script>
+{% endblock content %}

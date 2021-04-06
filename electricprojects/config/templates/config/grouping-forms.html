@@ -1,0 +1,56 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>Formas de Agrupamento dos Circuitos</h1>
+<br>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Descrição</th>
+        <th>Método</th>
+    </thead>
+    <tbody id="tbodyGroupingForms_id">
+        {% for grouping in groupingForms %}
+        <tr>
+            <td>
+                {{ grouping.id }}
+            </td>
+            <td>
+                {{ grouping.description }}
+            </td>
+            <td>
+                {{ grouping.reference_method.reference }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button onclick=addGroupingFormsSeeds()>Adicionar formas de agrupamento</button>
+<script>
+    function addGroupingFormsSeeds() {
+        const request = new Request('./ajax/add-a08/')
+        fetch(request, {
+            method: 'GET',
+            mode: 'same-origin'
+        }).then(
+            function (response) {
+                if (response.status === 201) {
+                    let xhttp = new XMLHttpRequest()
+                    xhttp.onreadystatechange = function (data) {
+                        if (this.readyState === 4 && this.status === 200) {
+                            document.getElementById("tbodyGroupingForms_id").innerHTML = this.response
+                        } else if (this.readyState === 4 && this.status !== 200) {
+                            alert("Erro ao obter lista de itens adicionados")
+                        }
+                    }
+                    xhttp.open("GET", "./ajax/list-grouping-forms/", true)
+                    xhttp.send()
+                } else if (response.status === 400) {
+                    alert("Dados já adicionados")
+                } else {
+                    alert("Erro interno do servidor")
+                }
+            }
+        )
+    }
+</script>
+{% endblock content %}

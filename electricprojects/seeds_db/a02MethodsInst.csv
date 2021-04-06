@@ -1,0 +1,56 @@
+1;"Condutores isolados ou cabos unipolares em eletroduto de seção circular embutido em parede termicamente isolante";1;;
+2;"Cabo multipolar em eletroduto de seção circular embutido em parede termicamente isolante";2;;
+3;"Condutores isolados ou cabos unipolares em eletroduto aparente de seção circular sobre parede ou espaçado desta menos de 0,3 vez o diâmetro do eletroduto";3;;
+4;"Condutores isolados ou cabos unipolares em eletroduto aparente de seção circular sobre parede ou espaçado desta menos de 0,3 vez o diâmetro do eletroduto";4;;
+5;"Condutores isolados ou cabos unipolares em eletroduto aparente de seção não-circular sobre parede";3;;
+6;"Cabo multipolar em eletroduto aparente de seção não-circular sobre parede";4;;
+7;"Condutores isolados ou cabos unipolares em eletroduto de seção circular embutido em alvenaria";3;;
+8;"Condutores isolados ou cabos unipolares em eletroduto de seção circular embutido em alvenaria";4;;
+11;"Cabos unipolares ou cabo multipolar sobre parede ou espaçado desta menos de 0,3 vez o diâmetro do cabo";5;;
+"11A";"Cabos unipolares ou cabo multipolar fixado diretamente no teto";5;;
+"11B";"Cabos unipolares ou cabo multipolar afastado do teto mais de 0,3 vez o diâmetro do cabo";5;;
+12;"Cabos unipolares ou cabo multipolar em bandeja não-perfurada, perfilado ou prateleira";5;;
+13;"Cabos unipolares ou cabo multipolar em bandeja perfurada, horizontal ou vertical 4";7;;"multipolar"
+13;"Cabos unipolares ou cabo multipolar em bandeja perfurada, horizontal ou vertical 4";8;;"unipolar"
+14;"Cabos unipolares ou cabo multipolar sobre suportes horizontais, eletrocalha aramada ou tela";7;;"multipolar"
+14;"Cabos unipolares ou cabo multipolar sobre suportes horizontais, eletrocalha aramada ou tela";8;;"unipolar"
+15;"Cabos unipolares ou cabo multipolar afastado(s) da parede mais de 0,3 vez o diâmetro do cabo";7;;"multipolar"
+15;"Cabos unipolares ou cabo multipolar afastado(s) da parede mais de 0,3 vez o diâmetro do cabo";8;;"unipolar"
+16;"Cabos unipolares ou cabo multipolar em leito ";7;;"multipolar"
+16;"Cabos unipolares ou cabo multipolar em leito ";8;;"unipolar"
+17;"Cabos unipolares ou cabo multipolar suspenso(s) por cabo de suporte, incorporado ou não ";7;;"multipolar"
+17;"Cabos unipolares ou cabo multipolar suspenso(s) por cabo de suporte, incorporado ou não ";8;;"unipolar"
+18;"Condutores nus ou isolados sobre isoladores";9;;
+21;"Cabos unipolares ou cabos multipolares em espaço de construção5), sejam eles lançados diretamente sobre a superfície do espaço de construção, sejam instalados em suportes ou condutos abertos (bandeja, prateleira, tela ou leito) dispostos no espaço";4;5;
+21;"Cabos unipolares ou cabos multipolares em espaço de construção, sejam eles lançados diretamente sobre a superfície do espaço de construção, sejam instalados em suportes ou condutos abertos (bandeja, prateleira, tela ou leito) dispostos no espaço";3;50;
+22;"Condutores isolados em eletroduto de seção circular em espaço de construção";4;20;
+22;"Condutores isolados em eletroduto de seção circular em espaço de construção";3;1000;
+23;"Cabos unipolares ou cabo multipolar em eletroduto de seção circular em espaço de construção";4;;
+23;"Condutores isolados em eletroduto de seção não-circular ou eletrocalha em espaço de construção";4;20;
+24;"Condutores isolados em eletroduto de seção não-circular ou eletrocalha em espaço de construção";3;1000;
+25;"Cabos unipolares ou cabo multipolar em eletroduto de seção não-circular ou eletrocalha em espaço de construção";4;;
+25;"Condutores isolados em eletroduto de seção não-circular embutido em alvenaria";4;5;
+26;"Condutores isolados em eletroduto de seção não-circular embutido em alvenaria";3;50;
+27;"Cabos unipolares ou cabo multipolar em eletroduto de seção não-circular embutido em  alvenaria";4;;
+31;"Condutores isolados ou cabos unipolares em eletrocalha sobre parede em percurso horizontal ou vertical";3;;
+32;"Condutores isolados ou cabos unipolares em eletrocalha sobre parede em percurso horizontal ou vertical";3;;
+33;"Condutores isolados ou cabos unipolares em canaleta fechada embutida no piso";3;;
+34;"Cabo multipolar em canaleta fechada embutida no piso";4;;
+35;"Condutores isolados ou cabos unipolares em eletrocalha ou perfilado suspensa(o)";3;;
+36;"Cabo multipolar em eletrocalha ou perfilado suspensa(o)";4;;
+41;"Condutores isolados ou cabos unipolares em eletroduto de seção circular contido em canaleta fechada com percurso horizontal ou vertical";4;20;
+41;"Condutores isolados ou cabos unipolares em eletroduto de seção circular contido em canaleta fechada com percurso horizontal ou vertical";3;1000;
+42;"Condutores isolados em eletroduto de seção circular contido em canaleta ventilada embutida no piso";3;;
+43;"Condutores isolados em eletroduto de seção circular contido em canaleta ventilada embutida no piso";3;;
+51;"Cabo multipolar embutido diretamente em parede termicamente isolante";1;;
+52;"Cabos unipolares ou cabo multipolar embutido(s) diretamente em alvenaria sem proteção mecânica adicional";5;;
+53;"Cabos unipolares ou cabo multipolar embutido(s) diretamente em alvenaria com proteção mecânica adicional";5;;
+61;"Cabo multipolar em eletroduto(de seção circular ou não) ou em canaleta não-ventilada enterrado(a)";6;;
+63;"Cabos unipolares ou cabo multipolar diretamente enterrado(s), com proteção mecânica adicional";6;;
+71;"Condutores isolados ou cabos unipolares em moldura";1;;
+72;"Condutores isolados ou cabos unipolares em canaleta provida de separações sobre parede";3;;"unipolar"
+"72A";"Cabo multipolar em canaleta provida de separações sobre parede";4;;"multipolar"
+73;"Condutores isolados em eletroduto, cabos unipolares ou cabo multipolar embutido(s) em caixilho de porta";1;;
+74;"Condutores isolados em eletroduto, cabos unipolares ou cabo multipolar embutido(s) em caixilho de janela";1;;
+75;"Condutores isolados ou cabos unipolares em canaleta embutida em parede";3;;"unipolar"
+"75A";"Cabo multipolar em canaleta embutida em parede";4;;"multipolar"

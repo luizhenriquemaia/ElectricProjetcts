@@ -1,0 +1,64 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>Fator de Correção de Temperaturas</h1>
+<br>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Local</th>
+        <th>Temperatura</th>
+        <th>Tipo de isolação</th>
+        <th>Fator</th>
+    </thead>
+    <tbody id="tbodyTemperatureCorrection_id">
+        {% for correction in temperatureCorrections %}
+        <tr>
+            <td>
+                {{ correction.id }}
+            </td>
+            <td>
+                {{ correction.location }}
+            </td>
+            <td>
+                {{ correction.temperature }}
+            </td>
+            <td>
+                {{ correction.isolation_type.description }}
+            </td>
+            <td>
+                {{ correction.factor }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button onclick=addTemperatureCorrectionsSeeds()>Adicionar fator de correção de temperaturas</button>
+<script>
+    function addTemperatureCorrectionsSeeds() {
+        const request = new Request('./ajax/add-a06/')
+        fetch(request, {
+            method: 'GET',
+            mode: 'same-origin'
+        }).then(
+            function (response) {
+                if (response.status === 201) {
+                    let xhttp = new XMLHttpRequest()
+                    xhttp.onreadystatechange = function (data) {
+                        if (this.readyState === 4 && this.status === 200) {
+                            document.getElementById("tbodyTemperatureCorrection_id").innerHTML = this.response
+                        } else if (this.readyState === 4 && this.status !== 200) {
+                            alert("Erro ao obter lista de itens adicionados")
+                        }
+                    }
+                    xhttp.open("GET", "./ajax/list-temperature-corrections/", true)
+                    xhttp.send()
+                } else if (response.status === 400) {
+                    alert("Dados já adicionados")
+                } else {
+                    alert("Erro interno do servidor")
+                }
+            }
+        )
+    }
+</script>
+{% endblock content %}

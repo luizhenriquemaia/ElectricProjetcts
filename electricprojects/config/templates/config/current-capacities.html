@@ -1,0 +1,72 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>Capacidade de Condução de Corrente</h1>
+<br>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Seção nominal</th>
+        <th>Método de referência</th>
+        <th>Condutores carregados</th>
+        <th>Tipo de cabo</th>
+        <th>Capacidade</th>
+        <th>Isolação</th>
+    </thead>
+    <tbody id="tbodyCapacities_id">
+        {% for capacities in currentCapacities %}
+        <tr>
+            <td>
+                {{ capacities.id }}
+            </td>
+            <td>
+                {{ capacities.reference_method.method }}
+            </td>
+            <td>
+                {{ capacities.nominal_section }}
+            </td>
+            <td>
+                {{ capacities.number_of_charged_conductors }}
+            </td>
+            <td>
+                {{ capacities.cable_type }}
+            </td>
+            <td>
+                {{ capacities.capacity }}
+            </td>
+            <td>
+                {{ capacities.isolation_type.description }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button onclick=addCurrentCapacitiesSeeds()>Adicionar capacidade de condução de correntes</button>
+<script>
+    function addCurrentCapacitiesSeeds() {
+        const request = new Request('./ajax/add-a05/')
+        fetch(request, {
+            method: 'GET',
+            mode: 'same-origin'
+        }).then(
+            function (response) {
+                if (response.status === 201) {
+                    let xhttp = new XMLHttpRequest()
+                    xhttp.onreadystatechange = function (data) {
+                        if (this.readyState === 4 && this.status === 200) {
+                            document.getElementById("tbodyCapacities_id").innerHTML = this.response
+                        } else if (this.readyState === 4 && this.status !== 200) {
+                            alert("Erro ao obter lista de itens adicionados")
+                        }
+                    }
+                    xhttp.open("GET", "./ajax/list-current-capacities/", true)
+                    xhttp.send()
+                } else if (response.status === 400) {
+                    alert("Dados já adicionados")
+                } else {
+                    alert("Erro interno do servidor")
+                }
+            }
+        )
+    }
+</script>
+{% endblock content %}

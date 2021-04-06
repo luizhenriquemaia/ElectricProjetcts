@@ -1,0 +1,19 @@
+{% for isolation in isolationTypes %}
+<tr>
+    <td>
+        {{ isolation.id }}
+    </td>
+    <td>
+        {{ isolation.description }}
+    </td>
+    <td>
+        {{ isolation.max_temperature }}
+    </td>
+    <td>
+        {{ isolation.overload_temperature }}
+    </td>
+    <td>
+        {{ isolation.short_circuit_temperature }}
+    </td>
+</tr>
+{% endfor %}

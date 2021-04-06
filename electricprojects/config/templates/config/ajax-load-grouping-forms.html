@@ -1,0 +1,13 @@
+{% for grouping in groupingForms %}
+<tr>
+    <td>
+        {{ grouping.id }}
+    </td>
+    <td>
+        {{ grouping.description }}
+    </td>
+    <td>
+        {{ grouping.reference_method.reference }}
+    </td>
+</tr>
+{% endfor %}

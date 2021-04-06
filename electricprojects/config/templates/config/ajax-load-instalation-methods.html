@@ -1,0 +1,22 @@
+{% for method in instalationMethods %}
+<tr>
+    <td>
+        {{ method.id }}
+    </td>
+    <td>
+        {{ method.method }}
+    </td>
+    <td>
+        {{ method.description }}
+    </td>
+    <td>
+        {{ method.reference_method.reference }}
+    </td>
+    <td>
+        {{ method.cable_type }}
+    </td>
+    <td>
+        {{ method.maximum_diameter }}
+    </td>
+</tr>
+{% endfor %}
