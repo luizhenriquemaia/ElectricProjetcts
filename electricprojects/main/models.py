@@ -1,5 +1,5 @@
 from django.db import models
-
+ 
 
 class a01MethodsRef(models.Model):
     id = models.PositiveSmallIntegerField(primary_key=True)
@@ -76,4 +76,22 @@ class a09GroupingCorrection(models.Model):
     objects = models.Manager()
 
 
+class a10State(models.Model):
+    id = models.IntegerField(primary_key=True)
+    uf = models.CharField(max_length=2)
+    description = models.CharField(max_length=20)
+    objects = models.Manager()
 
+
+class a11City(models.Model):
+    id = models.IntegerField(primary_key=True)
+    state = models.ForeignKey(a10State, on_delete=models.CASCADE)
+    description = models.CharField(max_length=40)
+    objects = models.Manager()
+
+
+class a12District(models.Model):
+    id = models.IntegerField(primary_key=True)
+    city = models.ForeignKey(a11City, on_delete=models.CASCADE)
+    description = models.CharField(max_length=50)
+    objects = models.Manager()
