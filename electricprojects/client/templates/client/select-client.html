@@ -1,0 +1,33 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>Select client and his address</h1>
+<div>
+    <select name="clients" id="id_clients">
+        {% for client in clients %}
+        <option value="{{ client.id }}">{{ client.description }}</option>
+        {% endfor %}
+    </select>
+    <button onclick = editClientInformation()>Edit client information</button>
+    <button onclick = addNewClient()>New client</button>
+</div>
+<div>
+    <select name="address" id="id_address"></select>
+    <button>New address</button>
+</div>
+<script>
+    function addNewClient() {window.location.href = '../add-client/'}
+
+    function editClientInformation() { 
+        client = document.getElementById('id_clients').value
+        if (client !== null) {
+            window.location.href = `../${client}/`
+        } else {
+            alert("select a client")
+        }
+    }
+
+    function loadAddressClient(clientId) {
+        const request = new Request(`../ajax/load-address/${clientId}`, )
+    }
+</script>
+{% endblock content %}

@@ -1,0 +1,18 @@
+#successToast, #incorrectDataToast, #internalErrorToast {
+    visibility: hidden;
+    min-width: 250px;
+    text-align: center;
+    color: white;
+    background-color: green;
+    z-index: 1;
+    left: 50%;
+    top: 50px;
+}
+
+#incorrectDataToast, #internalErrorToast {
+    background-color: red;
+}
+
+#successToast.show, #incorrectDataToast.show, #internalErrorToast.show {
+    visibility: visible;
+}

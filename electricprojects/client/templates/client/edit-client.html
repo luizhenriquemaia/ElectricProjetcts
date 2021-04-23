@@ -1,23 +1,23 @@
 {% extends "main/base-page.html" %}
 {% block content %}
-<h1>Adicionar cliente</h1>
+<h1>Edit Client Information</h1>
 <form method="POST" onsubmit=submitForm(event) >
     {% csrf_token %}
-    <label>Tratamento</label>
-    {{ formAddClient.treatment }}
-    <label>Nome</label>
-    {{ formAddClient.name }}
-    <label>Descrição</label>
-    {{ formAddClient.description }}
-    <label>CPF ou CNPJ</label>
-    {{ formAddClient.cnpj }}
-    <label>Telefone</label>
-    {{ formAddClient.fone }}
+    <label for="id_treatment">Treatment</label>
+    <input type="text" name="treatment" id="id_treatment" maxlength="30" value="{{ client.treatment }}" required>
+    <label for="id_name">Name</label>
+    <input type="text" name="name" id="id_name" maxlength="300" value="{{ client.name }}" required>
+    <label for="id_description">Description</label>
+    <input type="text" name="description" id="id_description" maxlength="300" value="{{ client.description }}" required>
+    <label for="id_cnpj">CPF ou CNPJ</label>
+    <input type="text" name="cnpj" id="id_cnpj" maxlength="14" value="{{ client.cnpj }}">
+    <label for="id_fone">Fone</label>
+    <input type="text" name="fone" id="id_fone" maxlength="15" value="{{ client.fone }}">
     <label>Email</label>
-    {{ formAddClient.email }}
+    <input type="email" name="email" id="id_email" value="{{ client.email }}">
     <button type="submit">Ok</button>
 </form>
-<div id="successToast">Client added!</div>
+<div id="successToast">Updated data!</div>
 <div id="incorrectDataToast">Invalid data!</div>
 <div id="internalErrorToast">Internal server error!</div>
 <script>
@@ -43,7 +43,7 @@
             mode: 'same-origin'
         }).then(
             function (response) {
-                if (response.status === 201) {
+                if (response.status === 200) {
                     let message = document.getElementById("successToast")
                     message.classList.toggle("show")
                     setTimeout(function() {

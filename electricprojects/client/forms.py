@@ -1,7 +1,7 @@
 from django import forms
 
 
-class formAddClient(forms.Form):
+class formDataClient(forms.Form):
     treatment = forms.CharField(max_length=30, required=True)
     name = forms.CharField(max_length=300, required=True)
     cnpj = forms.CharField(max_length=14, required=False)
