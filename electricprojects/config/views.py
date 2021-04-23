@@ -8,7 +8,7 @@ from django.shortcuts import render
 from main.models import (a01MethodsRef, a02MethodsInst, a03IsolationType,
                      a04NumberOfChargedConductors, a05CurrentCapacity,
                      a06TemperatureCorrection, a07UndergroundCorrection,
-                     a08GroupingForms, a09GroupingCorrection)
+                     a08GroupingForms, a09GroupingCorrection, a10State, a11City)
 
 
 def config_options(request):
@@ -346,5 +346,72 @@ def ajax_list_grouping_corrections(request):
         grouping_corrections = a09GroupingCorrection.objects.all().order_by('id')
         return render(request, "config/ajax-load-grouping-corrections.html", {
             "groupingCorrections": grouping_corrections})
+    else:
+        return HttpResponse(status=405)
+
+
+def cities_and_states(request):
+    if request.method == "GET":
+        states = a10State.objects.all().order_by('description')
+        cities = a11City.objects.all().order_by('description')
+        return render(request, "config/states-and-cities.html", {
+            "states": states, "cities": cities})
+    else:
+        return HttpResponse(status=405)
+
+
+def ajax_add_basic_data_a10(request):
+    if request.method == "GET":
+        if a10State.objects.all().exists():
+            return HttpResponse(status=400)
+        else:
+            csv_file = Path.cwd().joinpath("seeds_db", 'a10State.csv')
+            data_set = csv_file.read_text(encoding='UTF-8')
+            io_string = StringIO(data_set)
+            for count, column in enumerate(reader(io_string, delimiter=',', quotechar='|')):
+                new_state = a10State(
+                    id=count+1,
+                    uf=column[0].strip(' "'),
+                    description=column[1].strip(' "'),
+                )
+                new_state.save()
+            return HttpResponse(status=201)
+    else:
+        return HttpResponse(status=405)
+
+
+def ajax_list_states(request):
+    if request.method == "GET":
+        states = a10State.objects.all().order_by('description')
+        return render(request, "config/ajax-load-states.html", {
+            "states": states})
+    else:
+        return HttpResponse(status=405)
+
+
+def ajax_add_basic_data_a11(request):
+    if request.method == "GET":
+        if a11City.objects.all().exists():
+            return HttpResponse(status=400)
+        else:
+            csv_file = Path.cwd().joinpath("seeds_db", 'a11City.csv')
+            data_set = csv_file.read_text(encoding='UTF-8')
+            io_string = StringIO(data_set)
+            for count, column in enumerate(reader(io_string, delimiter=',', quotechar='|')):
+                new_city = a11City(
+                    id=count+1,
+                    state=a10State.objects.get(uf=column[1].strip(' "')),
+                    description=column[0].strip(' "'),
+                )
+                new_city.save()
+            return HttpResponse(status=201)
+    else:
+        return HttpResponse(status=405)
+
+def ajax_list_cities(request):
+    if request.method == "GET":
+        cities = a11City.objects.all().order_by('description')
+        return render(request, "config/ajax-load-cities.html", {
+            "cities": cities})
     else:
         return HttpResponse(status=405)

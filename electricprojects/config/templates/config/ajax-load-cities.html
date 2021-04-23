@@ -1,0 +1,13 @@
+{% for city in cities %}
+<tr>
+    <td>
+        {{ city.id }}
+    </td>
+    <td>
+        {{ city.state.uf}}
+    </td>
+    <td>
+        {{ city.description }}
+    </td>
+</tr>
+{% endfor %}

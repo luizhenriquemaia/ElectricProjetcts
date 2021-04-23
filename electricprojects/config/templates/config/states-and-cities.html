@@ -1,0 +1,108 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>States</h1>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Uf</th>
+        <th>Description</th>
+    </thead>
+    <tbody id="tbodyStates_id">
+        {% for state in states %}
+        <tr>
+            <td>
+                {{ state.id }}
+            </td>
+            <td>
+                {{ state.uf}}
+            </td>
+            <td>
+                {{ state.description }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<br>
+<h1>Cities</h1>
+<table>
+    <thead>
+        <th>Id</th>
+        <th>State</th>
+        <th>Description</th>
+    </thead>
+    <tbody id="tbodyCities_id">
+        {% for city in cities %}
+        <tr>
+            <td>
+                {{ city.id }}
+            </td>
+            <td>
+                {{ city.state.uf}}
+            </td>
+            <td>
+                {{ city.description }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button onclick=addStatesFromSeeds()>Add states from seeds</button>
+<button onclick=addCitiesFromSeeds()>Add cities from seeds</button>
+<script>
+    function addStatesFromSeeds() {
+        const request = new Request('./ajax/add-a10/')
+        fetch(request, {
+            method: 'GET',
+            mode: 'same-origin'
+        }).then(
+            function (response) {
+                if (response.status === 201) {
+                    let xhttp = new XMLHttpRequest()
+                    xhttp.onreadystatechange = function (data) {
+                        if (this.readyState === 4 && this.status === 200) {
+                            document.getElementById("tbodyStates_id").innerHTML = this.response
+                        } else if (this.readyState === 4 && this.status !== 200) {
+                            alert("Erro ao obter lista de itens adicionados")
+                        }
+                    }
+                    xhttp.open("GET", "./ajax/list-states/", true)
+                    xhttp.send()
+                } else if (response.status === 400) {
+                    alert("Dados já adicionados")
+                } else {
+                    alert("Erro interno do servidor")
+                }
+            }
+        )
+    }
+
+    function addCitiesFromSeeds() {
+            const request = new Request('./ajax/add-a11/')
+            fetch(request, {
+                method: 'GET',
+                mode: 'same-origin'
+            }).then(
+                function (response) {
+                    if (response.status === 201) {
+                        let xhttp = new XMLHttpRequest()
+                        xhttp.onreadystatechange = function (data) {
+                            if (this.readyState === 4 && this.status === 200) {
+                                document.getElementById("tbodyCities_id").innerHTML = this.response
+                            } else if (this.readyState === 4 && this.status !== 200) {
+                                alert("Erro ao obter lista de itens adicionados")
+                            }
+                        }
+                        xhttp.open("GET", "./ajax/list-cities/", true)
+                        xhttp.send()
+                    } else if (response.status === 400) {
+                        alert("Dados já adicionados")
+                    } else {
+                        alert("Erro interno do servidor")
+                    }
+                }
+            )
+        }
+</script>
+{% endblock content %}

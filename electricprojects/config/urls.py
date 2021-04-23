@@ -34,4 +34,9 @@ urlpatterns = [
     path('grouping-correction/', views.grouping_corrections, name='grouping_corrections'),
     path('grouping-correction/ajax/add-a09/', views.ajax_add_basic_data_a09, name='ajax_add_basic_data_a09'),
     path('grouping-correction/ajax/list-grouping-corrections/', views.ajax_list_grouping_corrections, name='ajax_list_grouping_corrections'),
+    path('states-and-cities/', views.cities_and_states, name='cities_and_states'),
+    path('states-and-cities/ajax/add-a10/', views.ajax_add_basic_data_a10, name='ajax_add_basic_data_a10'),
+    path('states-and-cities/ajax/list-states/', views.ajax_list_states, name='ajax_list_states'),
+    path('states-and-cities/ajax/add-a11/', views.ajax_add_basic_data_a11, name='ajax_add_basic_data_a11'),
+    path('states-and-cities/ajax/list-cities/', views.ajax_list_cities, name='ajax_list_cities'),
 ]
