@@ -82,6 +82,9 @@ class a10State(models.Model):
     description = models.CharField(max_length=20)
     objects = models.Manager()
 
+    def __str__(self):
+        return self.description
+
 
 class a11City(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -89,9 +92,15 @@ class a11City(models.Model):
     description = models.CharField(max_length=40)
     objects = models.Manager()
 
+    def __str__(self):
+        return self.description
+
 
 class a12District(models.Model):
     id = models.IntegerField(primary_key=True)
     city = models.ForeignKey(a11City, on_delete=models.CASCADE)
-    description = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
     objects = models.Manager()
+
+    def __str__(self):
+        return self.description

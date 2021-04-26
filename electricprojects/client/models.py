@@ -18,6 +18,6 @@ class b02Address(models.Model):
     id = models.IntegerField(primary_key=True)
     client = models.ForeignKey(b01Clients, on_delete=models.CASCADE)
     district = models.ForeignKey(a12District, on_delete=models.CASCADE)
-    street = models.CharField(max_length=100)
-    complement = models.CharField(max_length=255, blank=True, null=True)
+    street = models.CharField(max_length=200)
+    complement = models.CharField(max_length=300, blank=True, null=True)
     objects = models.Manager()

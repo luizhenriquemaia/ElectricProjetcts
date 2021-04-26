@@ -1,0 +1,99 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>Add new address for {{client.description}}</h1>
+<form method="POST" onsubmit=submitForm(event)>
+    {% csrf_token %}
+    <label for="id_state">State</label>
+    {{ form.state }}
+    <label for="id_city">City</label>
+    {{ form.city }}
+    <label for="id_district">District</label>
+    {{ form.district }}
+    <label for="id_new_district">New District</label>
+    {{ form.new_district }}
+    <label for="id_street">Street</label>
+    {{ form.street }}
+    <label for="id_complement">Complement</label>
+    {{ form.complement }}
+    <button type="submit">Ok</button>
+</form>
+<div id="successToast">Address added!</div>
+<div id="incorrectDataToast">Invalid data!</div>
+<div id="internalErrorToast">Internal server error!</div>
+<script>
+    function submitForm(e) {
+        e.preventDefault()
+        const data_to_backend = new FormData()
+        data_to_backend.append("state", document.getElementById("id_state").value)
+        data_to_backend.append("city", document.getElementById("id_city").value)
+        data_to_backend.append("district", document.getElementById("id_district").value)
+        data_to_backend.append("new_district", document.getElementById("id_new_district").value)
+        data_to_backend.append("street", document.getElementById("id_street").value)
+        data_to_backend.append("complement", document.getElementById("id_complement").value)
+        const request = new Request(
+            './',
+            {
+                method: 'POST',
+                headers: { 'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value },
+                body: data_to_backend
+            }
+        )
+        fetch(request, {
+            method: 'POST',
+            mode: 'same-origin'
+        }).then(
+            function (response) {
+                if (response.status === 201) {
+                    let message = document.getElementById("successToast")
+                    message.classList.toggle("show")
+                    setTimeout(function () {
+                        message.classList.toggle("show")
+                    }, 2000)
+                    setTimeout(function () { window.location.href = '../../select-client/' }, 2500)
+                } else if (response.status === 400) {
+                    let message = document.getElementById("incorrectDataToast")
+                    message.classList.toggle("show")
+                    setTimeout(function () {
+                        message.classList.toggle("show")
+                    }, 2000)
+                } else {
+                    let message = document.getElementById("internalErrorToast")
+                    message.classList.toggle("show")
+                    setTimeout(function () {
+                        message.classList.toggle("show")
+                    }, 2000)
+                }
+            }
+        )
+    }
+
+    function loadData(element) {
+        var xhttp = new XMLHttpRequest()
+        if (element.id === "id_state") {
+            if (element.value !== 0 && element.value !== "") {
+                xhttp.onreadystatechange = function (data) {
+                    if (this.readyState === 4 && this.status === 200) {
+                        document.getElementById("id_city").innerHTML = this.response
+                    }
+                }
+                xhttp.open("GET", `../../ajax/load-cities/${element.value}`, true)
+                xhttp.send()
+            } else {
+                document.getElementById("id_city").innerHTML = ""
+            }
+        } else if (element.id === "id_city") {
+            if (element.value !== 0 && element.value !== "") {
+                xhttp.onreadystatechange = function (data) {
+                    if (this.readyState === 4 && this.status === 200) {
+                        document.getElementById("id_district").innerHTML = this.response
+                    }
+                }
+                xhttp.open("GET", `../../ajax/load-districts/${element.value}`, true)
+                xhttp.send()
+            } else {
+                document.getElementById("id_district").innerHTML = ""
+            }
+        }
+    }
+</script>
+{% endblock content %}
