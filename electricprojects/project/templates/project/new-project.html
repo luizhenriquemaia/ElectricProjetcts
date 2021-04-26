@@ -1,0 +1,106 @@
+{% extends "main/base-page.html" %}
+{% block content %}
+<h1>New project initial information</h1>
+<form method="POST" onsubmit=submitForm(event) id="formNewProject">
+    {% csrf_token %}
+    <div>
+        <label for="id_client">Client</label>
+        {{ form.client }}
+        <button type="button" onclick = editClientInformation()>Edit client information</button>
+        <button type="button" onclick = addNewClient()>New client</button>
+    </div>
+    <div>
+        <label for="id_address">Address</label>
+        {{ form.address }}
+        <button type="button" onclick=addNewAddress()>New address</button>
+    </div>
+    <div>
+        <label for="id_description">Description of the project</label>
+        {{ form.description }}
+    </div>
+    <div>
+        <label for="id_observation">Observation</label>
+        {{ form.observation }}
+    </div>
+    <br>
+    <button type="submit">Ok</button>
+</form>
+<div id="successToast">New project added!</div>
+<div id="incorrectDataToast">Invalid data!</div>
+<div id="internalErrorToast">Internal server error!</div>
+<script>
+    function addNewClient() {window.location.href = '../../client/add-client/'}
+
+    function editClientInformation() { 
+        client = document.getElementById('id_client').value
+        if (client !== '') {
+            window.location.href = `../../client/${client}/`
+        } else {
+            alert("select a client")
+        }
+    }
+
+    function addNewAddress() {
+        client = document.getElementById('id_client').value
+        if (client !== '') {
+            window.location.href = `../../client/${client}/new-address/`
+        } else {
+            alert("select a client")
+        }
+    }
+
+    function loadAddressClient(element) {
+        var xhttp = new XMLHttpRequest()
+        if (element.value !== 0 && element.value !== "") {
+            xhttp.onreadystatechange = function (data) {
+                if (this.readyState === 4 && this.status === 200) {
+                    document.getElementById("id_address").innerHTML = this.response
+                }
+            }
+            xhttp.open("GET", `../../client/ajax/load-addresses/${element.value}`, true)
+            xhttp.send()
+        } else {
+            document.getElementById("id_address").innerHTML = ""
+        }
+    }
+
+    function submitForm(e) {
+        e.preventDefault()
+        const dataToBackend = new FormData(formNewProject)
+        const request = new Request('./', {
+            method: 'POST',
+            headers: { 'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value },
+            body: dataToBackend
+        })
+        fetch(request, {
+            method: 'POST',
+            mode: 'same-origin'
+        }).then(
+            function(response) {
+                if(response.status === 201) {
+                    let message = document.getElementById("successToast")
+                    message.classList.toggle("show")
+                    setTimeout(function () {
+                        message.classList.toggle("show")
+                    }, 2000)
+                    //setTimeout(function () { window.location.href = '../select-client/' }, 2500)
+                } else if (response.status === 400) {
+                    let message = document.getElementById("incorrectDataToast")
+                    message.classList.toggle("show")
+                    setTimeout(function () {
+                        message.classList.toggle("show")
+                    }, 2000)
+                } else {
+                    let message = document.getElementById("internalErrorToast")
+                    message.classList.toggle("show")
+                    setTimeout(function () {
+                        message.classList.toggle("show")
+                    }, 2000)
+                }   
+            }
+        )
+        
+
+    }
+</script>
+{% endblock content %}

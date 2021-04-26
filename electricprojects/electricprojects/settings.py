@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'main',
     'config',
     'client',
+    'project',
 ]
 
 MIDDLEWARE = [

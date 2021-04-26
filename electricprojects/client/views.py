@@ -82,16 +82,6 @@ def edit_client_information(request, id_client):
         return HttpResponse(status=405)
 
 
-def select_client(request):
-    if request.method == "GET":
-        clients = b01Clients.objects.all().only('id', 'description').order_by('description')
-        return render(request, "client/select-client.html", {'clients': clients})
-    elif request.method == "POST":
-        return HttpResponse(status=201)
-    else:
-        return HttpResponse(status=405)
-
-
 def new_address(request, id_client):
     if request.method == "GET":
         client = b01Clients.objects.get(id=id_client)

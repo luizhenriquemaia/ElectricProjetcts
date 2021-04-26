@@ -13,6 +13,9 @@ class b01Clients(models.Model):
     email = models.EmailField(null=True)
     objects = models.Manager()
 
+    def __str__(self):
+        return self.description
+
 
 class b02Address(models.Model):
     id = models.IntegerField(primary_key=True)
